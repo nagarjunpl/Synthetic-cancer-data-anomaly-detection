@@ -1,10 +1,9 @@
 import pandas as pd
 import numpy as np
 
-def clean_data(input_file="synthetic_with_anomalies.csv", 
-               output_file="cleaned_synthetic_cancer_data.csv"):
-    """Clean data and ensure minimum 1000 rows"""
-    print(" Cleaning data...")
+def clean_data(input_file="synthetic_with_anomalies.csv", output_file="cleaned_synthetic_cancer_data.csv"):
+
+    print("Cleaning data...")
     
     try:
         df = pd.read_csv(input_file)
@@ -47,7 +46,7 @@ def clean_data(input_file="synthetic_with_anomalies.csv",
     df.loc[mask, "cancer_type"] = "None"
     df.loc[mask, "treatment_type"] = "None"
     df.loc[mask, "response_to_treatment"] = "N/A"
-    print(f"4️. Inconsistencies fixed: {mask.sum()}")
+    print(f" Inconsistencies fixed: {mask.sum()}")
 
     if len(df) < 1000:
         needed = 1000 - len(df)
@@ -57,9 +56,8 @@ def clean_data(input_file="synthetic_with_anomalies.csv",
     
     if len(df) > 1050:
         df = df.sample(n=1050, random_state=42)
-        print(f" Sampled down to {len(df)} rows")
+        print(f"Sampled down to {len(df)} rows")
     
-    # Ensure at least 1000 rows
     if len(df) < 1000:
         needed = 1000 - len(df)
         additional = df.sample(n=needed, replace=True, random_state=42)
@@ -90,13 +88,12 @@ def clean_data(input_file="synthetic_with_anomalies.csv",
     df.to_csv(output_file, index=False)
     
     # Summary
-    print(f"\n Final dataset: {df.shape}")
-    print(f"   Rows preserved: {len(df)} / {original_rows}")
-    print(f"   Age range: {df['age'].min()}-{df['age'].max()}")
-    print(f"   Cancer patients: {df['cancer_presence'].sum()} ({df['cancer_presence'].sum()/len(df)*100:.1f}%)")
+    print(f"\nFinal dataset: {df.shape}")
+    print(f"  Rows preserved: {len(df)} / {original_rows}")
+    print(f"  Age range: {df['age'].min()}-{df['age'].max()}")
+    print(f"  Cancer patients: {df['cancer_presence'].sum()} ({df['cancer_presence'].sum()/len(df)*100:.1f}%)")
     print(f"\n Saved: '{output_file}' with {len(df)} rows")
     
     return df
-
 
 clean_data()
