@@ -1,15 +1,13 @@
 import pandas as pd
 import numpy as np
 
-def introduce_anomalies(input_file="synthetic_cancer_patient_data.csv", 
-                        output_file="synthetic_with_anomalies.csv"):
-    """Introduce anomalies while maintaining ~1100+ rows"""
-    print("⚠️ Introducing anomalies...")
+def introduce_anomalies(input_file="synthetic_cancer_patient_data.csv", output_file="synthetic_with_anomalies.csv"):
+    print("Introducing anomalies...")
     
     try:
         df = pd.read_csv(input_file)
     except FileNotFoundError:
-        print(f"❌ Error: '{input_file}' not found")
+        print(f" Error: '{input_file}' not found")
         return None
     
     print(f" Input: {df.shape}")
@@ -44,8 +42,8 @@ def introduce_anomalies(input_file="synthetic_cancer_patient_data.csv",
     # Save
     df.to_csv(output_file, index=False)
     
-    print(f"\n📊 Final: {df.shape}")
-    print(f"✅ Saved: '{output_file}'")
+    print(f"\nFinal: {df.shape}")
+    print(f"Saved: '{output_file}'")
     
     return df
 
